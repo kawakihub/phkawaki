@@ -5,17 +5,17 @@ local l = loadstring(game:HttpGet("https://raw.githubusercontent.com/discoart/Fl
 local Window = l:CreateWindow({
     Title = "Kawaki Hub",
     SubTitle = "https://discord.gg/49DAzBrkX4",
-    TabWidth = 0,
+    TabWidth = 15,
     Size = UDim2.fromOffset(0, 0),
-    Acrylic = false,
-    Theme = "Dark",
+    Acrylic = true,
+    Theme = "Ocean",
 })
 l:Destroy()
 
-wait(0.005)
+wait(5)
 
 loadstring(game:HttpGet("https://raw.githubusercontent.com/kawakihub/phkawaki/refs/heads/main/real-yobi/main/Grow.A.Garden/yobi/Kawakihub.lua"))()
 
-wait(0.1)
+wait(5)
 
 game:GetService("StarterGui"):SetCore("SendNotification", {Title="Join My Discord Server", Text="https://discord.gg/49DAzBrkX4", Duration=5})
