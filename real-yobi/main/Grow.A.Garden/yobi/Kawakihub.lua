@@ -1,3 +1,4 @@
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Lucasggk/BlueLock/refs/heads/main/Fix.name.ui.lua"))() 
 local script_version = {
     -- version
     version = "1.55",
@@ -11,14 +12,14 @@ if script_version.alpha == true then
 else 
     script_version.alpha = "Release version"
 end
-print("MADE BY YOBI\nScript Version " .. script_version.version .. " - " .. script_version.alpha)
+print("MADE BY KAWAKI\nScript Version " .. script_version.version .. " - " .. script_version.alpha)
 local vful = script_version.version .." - ".. script_version.alpha
 getgenv().vers = vful
 
 
 
 
-repeat task.wait() until game:IsLoaded(d)
+repeat task.wait() until game:IsLoaded()
 repeat task.wait() until game.Players.LocalPlayer:FindFirstChild("PlayerGui") 
 
 local ReplicatedStorage = game:GetService("ReplicatedStorage") 
@@ -49,7 +50,7 @@ local Window = Fluent:CreateWindow({
     TabWidth = 160,
     Size = UDim2.fromOffset(500, 350),
     Acrylic = false,
-    Theme = "Dark",
+    Theme = "Ocean",
     Center = true,
     IsDraggable = true,
     Keybind = Enum.KeyCode.LeftControl
@@ -58,42 +59,42 @@ local Window = Fluent:CreateWindow({
 -- Local Tabs --
 
 local loja = Window:AddTab({
-    Title = "store",
+    Title = "🛍️Store",
     Icon = "home"
 })
 
 local plant = Window:AddTab({
-    Title = "plant",
+    Title = "🍄Plant",
     Icon = "list"
 })
 
 local sell = Window:AddTab({
-    Title = "sell",
+    Title = "🪝Sell",
     Icon = "list"
 })
 
 local player = Window:AddTab({
-        Title = "Player",
+        Title = "🥷Player",
         Icon = "list"
     })
 
 local pet = Window:AddTab({
-        Title = "pet",
+        Title = "🦝Pet",
         Icon = "list"
     })
 
 local ui = Window:AddTab({
-        Title = "UIs",
+        Title = "📱UIs",
         Icon = "list"
     })
 
 local event = Window:AddTab({
-    Title = "Events",
+    Title = "🎉Events",
     Icon = "list"
 })
 
 local config = Window:AddTab({
-    Title = "configuration",
+    Title = "💀Configuration",
     Icon = "settings"
 })
 
@@ -102,11 +103,11 @@ InterfaceManager:SetLibrary(Fluent)
 InterfaceManager:SetFolder("GrowAGarden")
 InterfaceManager:BuildInterfaceSection(config)
 
--- Local Variáveis --
+-- Local Variables --
 
-local byallseed = {"Carrot", "Strawberry", "Blueberry", "Orange Tulip", "Tomato", "Corn", "Daffodil", "Watermelon", "Pumpkin", "Apple", "Bamboo", "Coconut", "Cactus", "Dragon Fruit", "Mango", "Grape", "Mushroom", "Pepper", "Cacao", "Beanstalk"}
+local byallseed = {"Carrot", "Strawberry", "Blueberry", "Orange Tulip", "Tomato", "Corn", "Daffodil", "Watermelon", "Pumpkin", "Apple", "Bamboo", "Coconut", "Cactus", "Dragon Fruit", "Mango", "Grape", "Mushroom", "Pepper", "Cacao", "Beanstalk", "Ember Lily"}
 local bygear = {"Watering Can", "Trowel", "Recall Wrench", "Basic Sprinkler", "Advanced Sprinkler", "Godly Sprinkler", "Lightning Rod", "Master Sprinkler", "Favorite Tool", "Harvest Tool"}
-local pseed = {"Carrot", "Strawberry", "Blueberry", "Orange Tulip", "Tomato", "Corn", "Daffodil", "Watermelon", "Pumpkin", "Apple", "Bamboo", "Coconut", "Cactus", "Dragon Fruit", "Mango", "Grape", "Mushroom", "Pepper", "Cacao", "Beanstalk", "Moon Melon", "Blood Banana"}
+local pseed = {"Carrot", "Strawberry", "Blueberry", "Orange Tulip", "Tomato", "Corn", "Daffodil", "Watermelon", "Pumpkin", "Apple", "Bamboo", "Coconut", "Cactus", "Dragon Fruit", "Mango", "Grape", "Mushroom", "Pepper", "Cacao", "Beanstalk", "Ember Lily"}
 
 
 
@@ -389,7 +390,7 @@ function prefsh()
             table.insert(PetsId, child.Name)
         end
     end
-    print("Updated Pets:")
+    print("Pets atualizados:")
     for _, id in ipairs(PetsId) do
         print(id)
     end
@@ -398,7 +399,7 @@ end
 
 local pDropdown = pet:AddDropdown("Dropdown", {
     Title = "Choose the pet to feed\n",
-    Description = "self explains\n",
+    Description = "self-explanatory",
     Values = {},
     Multi = false,
     Default = nil,
@@ -434,7 +435,7 @@ local autoFeed = false
 
 pet:AddToggle("AutoFeedToggle", {
     Title = "Automatic Feeding\n",
-    Description = "Feed the selected pet automatically\nBut take the food in your hand!\n",
+    Description = "Feeds the selected pet automatically\nBut take the food in your hand!\n",
     Default = false,
     Callback = function(Value)
         autoFeed = Value
@@ -443,9 +444,9 @@ pet:AddToggle("AutoFeedToggle", {
                 while autoFeed do
                     if pfeed then
                         feedsc:FireServer("Feed", pfeed)
-                        print("Pet fed:", pfeed)
+                        print("Pet alimentado:", pfeed)
                     else
-                        print("No pets selected to feed")
+                        print("Nenhum pet selecionado para alimentar")
                     end
                     wait(0.3) 
                 end
@@ -460,9 +461,9 @@ pet:AddButton({
     Callback = function()
         if pfeed then
             feedsc:FireServer("Feed", pfeed)
-            print("Pet fed:", pfeed)
+            print("Pet alimentado:", pfeed)
         else
-            print("No pet selected")
+            print("Nenhum pet selecionado")
         end
     end
 })
@@ -478,7 +479,7 @@ ui:AddButton({
         local ui = game:GetService("Players").LocalPlayer.PlayerGui:FindFirstChild("CosmeticShop_UI")
         if ui then
             ui.Enabled = not ui.Enabled
-            print("Cosmetic Shop UI:", ui.Enabled and "Activated" or "Disabled")
+            print("Cosmetic Shop UI:", ui.Enabled and "Ativada" or "Desativada")
         end
     end
 })
@@ -491,7 +492,7 @@ ui:AddButton({
         local ui = game:GetService("Players").LocalPlayer.PlayerGui:FindFirstChild("Gear_Shop")
         if ui then
             ui.Enabled = not ui.Enabled
-            print("Gear Shop UI:", ui.Enabled and "Activated" or "Disabled")
+            print("Gear Shop UI:", ui.Enabled and "Ativada" or "Desativada")
         end
     end
 })
@@ -504,19 +505,19 @@ ui:AddButton({
         local ui = game:GetService("Players").LocalPlayer.PlayerGui:FindFirstChild("Seed_Shop")
         if ui then
             ui.Enabled = not ui.Enabled
-            print("Seed Shop UI:", ui.Enabled and "Activated" or "Disabled")
-        en
+            print("Seed Shop UI:", ui.Enabled and "Ativada" or "Desativada")
+        end
     end
 })
 
 ui:AddButton({
     Title = "Daily quest UI",
-    Description = "Enable/Disable the Daily quest ui",
+    Description = "Enable/Disable Daily quest ui",
     Callback = function()
         local ui = game:GetService("Players").LocalPlayer.PlayerGui.DailyQuests_UI
         if ui then
             ui.Enabled = not ui.Enabled
-            print("Daily Quest UI:", ui.Enabled and "Activated" or "Disabled")
+            print("Daily Quest UI:", ui.Enabled and "Ativada" or "Desativada")
         end
     end
 })
@@ -527,7 +528,7 @@ ui:AddButton({
 
 
 
-local section = event:AddSection("Honey | tantrums")
+local section = event:AddSection("Honey | bizze")
 local ativo = false
 
 event:AddToggle("Auto Trade Machine", {
@@ -546,13 +547,13 @@ event:AddToggle("Auto Trade Machine", {
                 return nome:lower():find("pollinated") ~= nil
             end
 
-            while active do
+            while ativo do
                 local char = player.Character or player.CharacterAdded:Wait()
                 local humanoid = char:FindFirstChildOfClass("Humanoid")
-                local backpack = player:FindFirstChild("Backpack")
-                local items = {}
+                local mochila = player:FindFirstChild("Backpack")
+                local itens = {}
 
-                for _, container in ipairs({char, backpack}) do
+                for _, container in ipairs({char, mochila}) do
                     if container then
                         for _, item in ipairs(container:GetChildren()) do
                             if item:IsA("Tool") and temPollinated(item.Name) then
@@ -563,7 +564,7 @@ event:AddToggle("Auto Trade Machine", {
                 end
 
                 for _, item in ipairs(itens) do
-                    if not active then return end
+                    if not ativo then return end
 
                     humanoid:EquipTool(item)
                     task.wait(0.1)
@@ -572,7 +573,7 @@ event:AddToggle("Auto Trade Machine", {
                     rs.GameEvents.HoneyMachineService_RE:FireServer("MachineInteract")
 
                     local tempo = tick()
-                    while active and char:FindFirstChildOfClass("Tool") == item do
+                    while ativo and char:FindFirstChildOfClass("Tool") == item do
                         if tick() - tempo >= 2 then
                             rs.GameEvents.HoneyMachineService_RE:FireServer("MachineInteract")
                             tempo = tick()
@@ -594,7 +595,7 @@ event:AddButton({
         local ui = game:GetService("Players").LocalPlayer.PlayerGui.HoneyEventShop_UI
         if ui then
             ui.Enabled = not ui.Enabled
-            print("Honey Shop UI:", ui.Enabled and "Activated" or "Disabled")
+            print("Honey Shop UI:", ui.Enabled and "Ativada" or "Desativada")
         end
     end
 })
@@ -656,7 +657,7 @@ end)
 task.spawn(function()
     local lastMinute = -1
     while true do
-        local minutes = os.date("*t").min
+        local minutos = os.date("*t").min
         if minutos ~= lastMinute then
             lastMinute = minutos
 
@@ -690,4 +691,3 @@ game:GetService("Players").LocalPlayer.Idled:Connect(function()
     VirtualUser:Button2Down(Vector2.new(0,0), workspace.CurrentCamera.CFrame)task.wait(1)
     VirtualUser:Button2Up(Vector2.new(0,0), workspace.CurrentCamera.CFrame)
 end)
-    
