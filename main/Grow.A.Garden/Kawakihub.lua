@@ -1,4 +1,4 @@
-game:GetService("StarterGui"):SetCore("SendNotification", {Title="Script loading...", Text="Made by Lucas", Duration=5})
+game:GetService("StarterGui"):SetCore("SendNotification", {Title="Script loading...", Text="Made by Kawaki Hub", Duration=10})
 
 
 local l = loadstring(game:HttpGet("https://raw.githubusercontent.com/discoart/FluentPlus/refs/heads/main/release.lua", true))()
@@ -18,4 +18,4 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/kawakihub/phkawaki/re
 
 wait(0.1)
 
-game:GetService("StarterGui"):SetCore("SendNotification", {Title="script loaded...", Text="Made by Kawaki Hub", Duration=5})
+game:GetService("StarterGui"):SetCore("SendNotification", {Title="Join My Discord Server", Text="https://discord.gg/wbUUHP5J", Duration=10})
