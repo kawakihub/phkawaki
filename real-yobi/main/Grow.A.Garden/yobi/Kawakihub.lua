@@ -69,12 +69,12 @@ local plant = Window:AddTab({
 })
 
 local sell = Window:AddTab({
-    Title = "🪝Sell",
+    Title = "🔥Sell",
     Icon = "list"
 })
 
 local player = Window:AddTab({
-        Title = "🥷Player",
+        Title = "👽Player",
         Icon = "list"
     })
 
