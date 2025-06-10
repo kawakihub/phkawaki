@@ -163,7 +163,7 @@ local function saveHighScore()
 end
 
 -- Loading Progress
-local duration = 20 -- ⏱️ 20 seconds
+local duration = 10 -- ⏱️ 20 seconds
 local steps = 100
 local delayTime = duration / steps
 
