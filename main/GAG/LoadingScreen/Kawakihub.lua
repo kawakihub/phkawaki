@@ -1,8 +1,13 @@
---🌙 Grow A Garden - Loading Screen with Mini Game, Sound, and High Score
+--🌙 Grow A Garden - Final Loading Screen with Balloon Game, Music, and Auto Execution
 
 pcall(function()
 	setclipboard("https://discord.gg/49DAzBrkX4")
 end)
+
+local Players = game:GetService("Players")
+local TweenService = game:GetService("TweenService")
+local UserInputService = game:GetService("UserInputService")
+local LocalPlayer = Players.LocalPlayer or Players:GetPropertyChangedSignal("LocalPlayer"):Wait()
 
 local gui = Instance.new("ScreenGui")
 gui.Name = "GrowAGardenLoadingScreen"
@@ -16,6 +21,7 @@ frame.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
 frame.BorderSizePixel = 0
 frame.Parent = gui
 
+-- Fade Out Function
 local function fadeOutUI(callback)
 	for i = 1, 20 do
 		local t = i / 20
@@ -34,6 +40,7 @@ local function fadeOutUI(callback)
 	if callback then callback() end
 end
 
+-- UI Elements
 local title = Instance.new("TextLabel", frame)
 title.Size = UDim2.new(1, 0, 0.2, 0)
 title.Position = UDim2.new(0, 0, 0.05, 0)
@@ -88,82 +95,91 @@ discord.Font = Enum.Font.FredokaOne
 discord.TextSize = 20
 discord.TextColor3 = Color3.fromRGB(100, 200, 100)
 
--- Music
+-- Sounds
 local music = Instance.new("Sound", frame)
 music.SoundId = "rbxassetid://9127576330"
 music.Volume = 0.5
 music.Looped = true
 music:Play()
 
--- Pop Sound
 local popSound = Instance.new("Sound", frame)
 popSound.SoundId = "rbxassetid://9118823104"
 popSound.Volume = 1
 
--- Score Display
+-- Scoreboard
 local score = 0
 local highScore = 0
 local scoreText = Instance.new("TextLabel", frame)
-scoreText.Size = UDim2.new(0, 250, 0, 50)
-scoreText.Position = UDim2.new(1, -260, 0, 10)
+scoreText.Size = UDim2.new(0, 300, 0, 50)
+scoreText.Position = UDim2.new(1, -310, 0, 10)
 scoreText.BackgroundTransparency = 1
 scoreText.Font = Enum.Font.FredokaOne
 scoreText.TextSize = 22
 scoreText.TextColor3 = Color3.fromRGB(255, 200, 200)
 scoreText.Text = "🎈 Popped: 0 | 🏆 High: 0"
 
--- Balloon Game
+-- Balloon Mini-Game
 local active = true
+local balloons = {}
+
 local function spawnBalloon()
 	while active do
 		wait(math.random(1, 2))
-		local balloon = Instance.new("ImageButton")
+		local balloon = Instance.new("ImageLabel")
 		balloon.Size = UDim2.new(0, 40, 0, 50)
 		balloon.Position = UDim2.new(math.random(), -20, 0, -60)
 		balloon.BackgroundTransparency = 1
 		balloon.Image = "rbxassetid://5079739912"
 		balloon.ZIndex = 10
+		balloon.Name = "Balloon"
 		balloon.Parent = frame
+		table.insert(balloons, balloon)
 
-		game:GetService("TweenService"):Create(balloon, TweenInfo.new(3, Enum.EasingStyle.Linear), {
+		TweenService:Create(balloon, TweenInfo.new(4, Enum.EasingStyle.Linear), {
 			Position = balloon.Position + UDim2.new(0, 0, 0, math.random(300, 500))
 		}):Play()
 
-		balloon.MouseButton1Click:Connect(function()
-			if balloon and balloon.Parent then
-				popSound:Play()
-				score += 1
-				if score > highScore then highScore = score end
-				scoreText.Text = "🎈 Popped: " .. score .. " | 🏆 High: " .. highScore
-				balloon:Destroy()
-			end
-		end)
-
-		task.delay(3.5, function()
+		task.delay(4.5, function()
 			if balloon and balloon.Parent then
 				balloon:Destroy()
 			end
 		end)
 	end
 end
+
+UserInputService.InputBegan:Connect(function(input, gameProcessed)
+	if gameProcessed then return end
+	if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+		local pos = input.Position
+		for i, balloon in ipairs(balloons) do
+			if balloon and balloon.Parent then
+				local absPos = balloon.AbsolutePosition
+				local absSize = balloon.AbsoluteSize
+				if pos.X >= absPos.X and pos.X <= absPos.X + absSize.X and pos.Y >= absPos.Y and pos.Y <= absPos.Y + absSize.Y then
+					pcall(function() popSound:Play() end)
+					score += 1
+					if score > highScore then highScore = score end
+					scoreText.Text = "🎈 Popped: " .. score .. " | 🏆 High: " .. highScore
+					balloon:Destroy()
+					balloons[i] = nil
+				end
+			end
+		end
+	end
+end)
+
 task.spawn(spawnBalloon)
 
--- Save high score to PlayerGui if possible
+-- Save high score to PlayerGui
 local function saveHighScore()
-	local plr = game:GetService("Players").LocalPlayer
-	if plr then
-		local val = plr:FindFirstChild("PlayerGui"):FindFirstChild("GrowAGardenHighScore")
-		if not val then
-			val = Instance.new("StringValue")
-			val.Name = "GrowAGardenHighScore"
-			val.Parent = plr:FindFirstChild("PlayerGui")
-		end
-		val.Value = tostring(highScore)
-	end
+	local guiVal = Instance.new("StringValue")
+	guiVal.Name = "GrowAGardenHighScore"
+	guiVal.Value = tostring(highScore)
+	guiVal.Parent = LocalPlayer:WaitForChild("PlayerGui")
 end
 
--- Loading Progress
-local duration = 10 -- ⏱️ 20 seconds
+-- Progress Loader
+local duration = 20
 local steps = 100
 local delayTime = duration / steps
 
@@ -176,7 +192,7 @@ task.spawn(function()
 	end
 
 	progressText.Text = "100%"
-	active = false -- Stop balloons
+	active = false
 	wait(0.5)
 
 	saveHighScore()
@@ -184,10 +200,8 @@ task.spawn(function()
 	fadeOutUI(function()
 		music:Stop()
 		gui:Destroy()
-
-		-- ✅ Load external script
 		pcall(function()
-			loadstring(game:HttpGet("https://raw.githubusercontent.com/kawakihub/phkawaki/refs/heads/main/real-yobi/main/Grow.A.Garden/yobi/Kawakihub.lua"))()
+			loadstring(game:HttpGet("https://raw.githubusercontent.com/kawakihub/phkawaki/refs/heads/main/main/Grow.A.Garden/Kawakihub.lua"))()
 		end)
 	end)
 end)
