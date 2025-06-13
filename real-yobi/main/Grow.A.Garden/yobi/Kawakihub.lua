@@ -1,4 +1,4 @@
-loadstring(game:HttpGet("https://raw.githubusercontent.com/kawakihub/phkawaki/refs/heads/main/main/Grow.A.Garden/Kawakihub.lua"))() 
+loadstring(game:HttpGet("https://raw.githubusercontent.com/kawakihub/phkawaki/refs/heads/main/main/Grow.A.Garden/main/notification/Kawakihub.lua"))() 
 local script_version = {
     -- version
     version = "1.55",
